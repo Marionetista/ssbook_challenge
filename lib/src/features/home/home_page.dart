@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../shared/colors/app_colors.dart';
 import '../../shared/models/author_model.dart';
@@ -9,8 +8,9 @@ import '../../widgets/home/app_bar_widget.dart';
 import '../../widgets/home/author_card_widget.dart';
 import '../../widgets/home/book_card_widget.dart';
 import '../../widgets/home/bottom_app_bar_widget.dart';
-import '../../widgets/home/chip_widget.dart';
+import '../../widgets/home/cathegory_widget.dart';
 import '../../widgets/home/favorite_book_card_widget.dart';
+import '../../widgets/home/section_title_widget.dart';
 import 'cubit/home_page_cubit.dart';
 import 'cubit/home_page_state.dart';
 
@@ -53,37 +53,9 @@ class _HomePageState extends State<HomePage> {
                       physics: const ClampingScrollPhysics(),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 20.0,
-                              right: 20.0,
-                              top: 32.0,
-                              bottom: 21.0,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Livros favoritos',
-                                  style: GoogleFonts.roboto(
-                                    color: AppColors.darkGrey,
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {},
-                                  child: Text(
-                                    'ver todos',
-                                    style: GoogleFonts.roboto(
-                                      color: AppColors.purple,
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                          const SectionTitleWidget(
+                            title: 'Livros favoritos',
+                            hasSeeAllButton: true,
                           ),
                           Padding(
                             padding:
@@ -115,38 +87,9 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 20.0,
-                                    right: 20.0,
-                                    top: 32.0,
-                                    bottom: 21.0,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Autores favoritos',
-                                        style: GoogleFonts.roboto(
-                                          color: AppColors.darkGrey,
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Text(
-                                          'ver todos',
-                                          style: GoogleFonts.roboto(
-                                            color: AppColors.purple,
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                const SectionTitleWidget(
+                                  title: 'Autores favoritos',
+                                  hasSeeAllButton: true,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 20.0),
@@ -167,60 +110,11 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 20.0,
-                                    top: 31.0,
-                                    bottom: 21.0,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Biblioteca',
-                                        style: GoogleFonts.roboto(
-                                          color: AppColors.darkGrey,
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                const SectionTitleWidget(
+                                  title: 'Biblioteca',
+                                  hasSeeAllButton: false,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: const [
-                                        ChipWidget(
-                                          label: 'Todos',
-                                          isSelected: true,
-                                        ),
-                                        ChipWidget(
-                                          label: 'Romance',
-                                          isSelected: false,
-                                        ),
-                                        ChipWidget(
-                                          label: 'Aventura',
-                                          isSelected: false,
-                                        ),
-                                        ChipWidget(
-                                          label: 'Comédia',
-                                          isSelected: false,
-                                        ),
-                                        ChipWidget(
-                                          label: 'Terror',
-                                          isSelected: false,
-                                        ),
-                                        ChipWidget(
-                                          label: 'Teologia',
-                                          isSelected: false,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                const CategoryWidget(),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 20.0,
