@@ -98,6 +98,8 @@ class _HomePageState extends State<HomePage> {
                                   imgUrl: favoritesBooks[index].cover,
                                   bookTitle: favoritesBooks[index].name,
                                   authorName: favoritesBooks[index].author.name,
+                                  description:
+                                      favoritesBooks[index].description,
                                 ),
                                 separatorBuilder: (context, index) =>
                                     const SizedBox(width: 20),
@@ -241,6 +243,7 @@ class _HomePageState extends State<HomePage> {
                                         imgUrl: books[index].cover,
                                         bookTitle: books[index].name,
                                         authorName: books[index].author.name,
+                                        description: books[index].description,
                                       ),
                                     ),
                                   ),

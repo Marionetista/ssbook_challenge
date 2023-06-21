@@ -9,12 +9,14 @@ class FavoriteBookCardWidget extends StatefulWidget {
     required this.imgUrl,
     required this.bookTitle,
     required this.authorName,
+    required this.description,
     super.key,
   });
 
   final String imgUrl;
   final String bookTitle;
   final String authorName;
+  final String description;
 
   @override
   State<FavoriteBookCardWidget> createState() => _FavoriteBookCardWidgetState();
@@ -26,7 +28,12 @@ class _FavoriteBookCardWidgetState extends State<FavoriteBookCardWidget> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const BookDetailPage(),
+              builder: (context) => BookDetailPage(
+                imgUrl: widget.imgUrl,
+                bookTitle: widget.bookTitle,
+                authorName: widget.authorName,
+                description: widget.description,
+              ),
             ),
           );
         },
