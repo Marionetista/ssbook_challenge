@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../features/book_detail/book_detail_page.dart';
 import '../../shared/colors/app_colors.dart';
 
-class FavoriteBookCardWidget extends StatefulWidget {
+class FavoriteBookCardWidget extends StatelessWidget {
   const FavoriteBookCardWidget({
     required this.imgUrl,
     required this.bookTitle,
@@ -19,20 +19,15 @@ class FavoriteBookCardWidget extends StatefulWidget {
   final String description;
 
   @override
-  State<FavoriteBookCardWidget> createState() => _FavoriteBookCardWidgetState();
-}
-
-class _FavoriteBookCardWidgetState extends State<FavoriteBookCardWidget> {
-  @override
   Widget build(BuildContext context) => InkWell(
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => BookDetailPage(
-                imgUrl: widget.imgUrl,
-                bookTitle: widget.bookTitle,
-                authorName: widget.authorName,
-                description: widget.description,
+                imgUrl: imgUrl,
+                bookTitle: bookTitle,
+                authorName: authorName,
+                description: description,
               ),
             ),
           );
@@ -45,14 +40,14 @@ class _FavoriteBookCardWidgetState extends State<FavoriteBookCardWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
-                  widget.imgUrl,
+                  imgUrl,
                   fit: BoxFit.fill,
                   height: 198.0,
                 ),
               ),
               const SizedBox(height: 10.0),
               Text(
-                widget.bookTitle,
+                bookTitle,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.roboto(
@@ -63,7 +58,7 @@ class _FavoriteBookCardWidgetState extends State<FavoriteBookCardWidget> {
               ),
               const SizedBox(height: 2.0),
               Text(
-                widget.authorName,
+                authorName,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start,
                 style: GoogleFonts.roboto(
