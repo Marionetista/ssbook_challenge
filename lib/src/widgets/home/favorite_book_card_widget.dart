@@ -5,7 +5,16 @@ import '../../features/book_detail/book_detail_page.dart';
 import '../../shared/colors/app_colors.dart';
 
 class FavoriteBookCardWidget extends StatefulWidget {
-  const FavoriteBookCardWidget({super.key});
+  const FavoriteBookCardWidget({
+    required this.imgUrl,
+    required this.bookTitle,
+    required this.authorName,
+    super.key,
+  });
+
+  final String imgUrl;
+  final String bookTitle;
+  final String authorName;
 
   @override
   State<FavoriteBookCardWidget> createState() => _FavoriteBookCardWidgetState();
@@ -29,14 +38,14 @@ class _FavoriteBookCardWidgetState extends State<FavoriteBookCardWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
-                  'https://m.media-amazon.com/images/I/41gr3r3FSWL._SY346_.jpg',
+                  widget.imgUrl,
                   width: 136.0,
                   height: 198.0,
                 ),
               ),
               const SizedBox(height: 10.0),
               Text(
-                'O duque e eu (Os Bridgertons Chupetas Serie No Netflix e Afins & Etc Nao Compre Esse Livro)',
+                widget.bookTitle,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.roboto(
@@ -47,7 +56,7 @@ class _FavoriteBookCardWidgetState extends State<FavoriteBookCardWidget> {
               ),
               const SizedBox(height: 2.0),
               Text(
-                'Julia Quinn',
+                widget.authorName,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.start,
                 style: GoogleFonts.roboto(

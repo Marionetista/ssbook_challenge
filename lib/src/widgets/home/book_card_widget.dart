@@ -4,7 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../shared/colors/app_colors.dart';
 
 class BookCardWidget extends StatelessWidget {
-  const BookCardWidget({super.key});
+  const BookCardWidget({
+    required this.imgUrl,
+    required this.bookTitle,
+    required this.authorName,
+    super.key,
+  });
+
+  final String imgUrl;
+  final String bookTitle;
+  final String authorName;
 
   @override
   Widget build(BuildContext context) => InkWell(
@@ -15,7 +24,7 @@ class BookCardWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: Image.network(
-                'https://m.media-amazon.com/images/I/41gr3r3FSWL._SY346_.jpg',
+                imgUrl,
                 width: 48.0,
                 height: 70.0,
               ),
@@ -27,7 +36,7 @@ class BookCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'O duque e eu (Os Bridgertons Chupetas Serie No Netflix e Afins & Etc Nao Compre Esse Livro)',
+                    bookTitle,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.roboto(
@@ -38,7 +47,7 @@ class BookCardWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 6.0),
                   Text(
-                    'Julia Quinn',
+                    authorName,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.start,

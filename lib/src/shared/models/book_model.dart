@@ -8,6 +8,7 @@ class BookModel extends Equatable {
         name: json['name'] as String,
         author: AuthorModel.fromJson(json['author'] as Map<String, Object?>),
         cover: json['cover'] as String,
+        description: json['description'] as String,
         isFavorite: json['isFavorite'] as bool,
       );
 
@@ -16,6 +17,7 @@ class BookModel extends Equatable {
     required this.name,
     required this.author,
     required this.cover,
+    required this.description,
     required this.isFavorite,
   });
 
@@ -23,6 +25,7 @@ class BookModel extends Equatable {
   final String name;
   final AuthorModel author;
   final String cover;
+  final String description;
   final bool isFavorite;
 
   @override

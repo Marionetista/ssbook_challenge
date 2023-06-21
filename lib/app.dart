@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+import 'src/features/home/cubit/home_page_cubit.dart';
 import 'src/features/home/home_page.dart';
 
 class App extends StatelessWidget {
@@ -28,7 +30,10 @@ class App extends StatelessWidget {
           theme: ThemeData(
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: const HomePage(),
+          home: BlocProvider<HomePageCubit>(
+            create: (context) => HomePageCubit(client.value)..getBooks(),
+            child: const HomePage(),
+          ),
         ),
       );
 }

@@ -4,7 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../shared/colors/app_colors.dart';
 
 class AuthorCardWidget extends StatelessWidget {
-  const AuthorCardWidget({super.key});
+  const AuthorCardWidget({
+    required this.imgUrl,
+    required this.name,
+    required this.bookCount,
+    super.key,
+  });
+
+  final String imgUrl;
+  final String name;
+  final int bookCount;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -17,7 +26,7 @@ class AuthorCardWidget extends StatelessWidget {
           child: ListTile(
             contentPadding: const EdgeInsets.only(),
             title: Text(
-              'Connie Brockway',
+              name,
               style: GoogleFonts.roboto(
                 color: AppColors.darkGrey,
                 fontWeight: FontWeight.w700,
@@ -25,7 +34,7 @@ class AuthorCardWidget extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              '6 Livros',
+              bookCount == 1 ? '$bookCount livro' : '$bookCount livros',
               style: GoogleFonts.roboto(
                 color: AppColors.darkGrey,
                 fontWeight: FontWeight.w400,
@@ -33,7 +42,7 @@ class AuthorCardWidget extends StatelessWidget {
               ),
             ),
             leading: Image.network(
-              'https://i.harperapps.com/authors/15851/x500.JPG',
+              imgUrl,
               width: 63.0,
               height: 67.0,
             ),
