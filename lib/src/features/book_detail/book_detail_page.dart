@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../shared/colors/app_colors.dart';
+import '../../widgets/book_detail/header_widget.dart';
 import '../../widgets/home/bottom_app_bar_widget.dart';
 
-class BookDetailPage extends StatefulWidget {
+class BookDetailPage extends StatelessWidget {
   const BookDetailPage({
     required this.imgUrl,
     required this.bookTitle,
@@ -19,11 +20,6 @@ class BookDetailPage extends StatefulWidget {
   final String description;
 
   @override
-  State<BookDetailPage> createState() => _BookDetailPageState();
-}
-
-class _BookDetailPageState extends State<BookDetailPage> {
-  @override
   Widget build(BuildContext context) => Scaffold(
         bottomNavigationBar: const BottomAppBarWidget(),
         body: SafeArea(
@@ -32,32 +28,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
               SizedBox(
                 width: double.infinity,
                 child: Image.network(
-                  widget.imgUrl,
+                  imgUrl,
                   fit: BoxFit.cover,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20.0,
-                  horizontal: 20.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () => Navigator.of(context).pop(),
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const Icon(
-                      Icons.more_vert,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
+              const HeaderWidget(),
               DraggableScrollableSheet(
                 initialChildSize: 0.6,
                 maxChildSize: 1.0,
@@ -79,7 +54,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                         children: [
                           ListTile(
                             title: Text(
-                              widget.bookTitle,
+                              bookTitle,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.roboto(
@@ -91,7 +66,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                             subtitle: Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
-                                widget.authorName,
+                                authorName,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.roboto(
@@ -109,7 +84,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           ),
                           const SizedBox(height: 20.0),
                           Text(
-                            widget.description,
+                            description,
                             style: GoogleFonts.roboto(
                               color: AppColors.darkGrey,
                               fontSize: 16.0,
