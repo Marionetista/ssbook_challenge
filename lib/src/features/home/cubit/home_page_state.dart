@@ -20,21 +20,14 @@ class HomePageError extends HomePageState {
 class HomePageLoaded extends HomePageState {
   HomePageLoaded({
     required this.books,
-    required this.favoriteBooks,
-    required this.favoriteAuthors,
     required this.userPicture,
+    this.authors,
   });
 
   final List<BookModel> books;
-  final List<BookModel> favoriteBooks;
-  final List<AuthorModel> favoriteAuthors;
+  final List<AuthorModel>? authors;
   final String userPicture;
 
   @override
-  List<Object?> get props => [
-        books,
-        favoriteBooks,
-        favoriteAuthors,
-        userPicture,
-      ];
+  List<Object?> get props => [books, authors, userPicture];
 }

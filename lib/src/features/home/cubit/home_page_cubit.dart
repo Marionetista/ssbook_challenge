@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../../shared/models/author_model.dart';
 import '../../../shared/models/book_model.dart';
-import '../graphql/home_queries.dart';
+import '../graphql/home_query.dart';
 import 'home_page_state.dart';
 
 class HomePageCubit extends Cubit<HomePageState> {
@@ -11,30 +11,29 @@ class HomePageCubit extends Cubit<HomePageState> {
 
   final GraphQLClient graphQLClient;
 
-  Future<void> getBooks({
+  Future<void> getHomePageData({
     bool hasError = false,
   }) async {
     try {
       emit(HomePageLoading());
 
       final result = await graphQLClient
-          .query(QueryOptions(document: gql(HomeQueries.homeData)))
+          .query(QueryOptions(document: gql(HomeQueries.homePageData)))
           .timeout(const Duration(seconds: 10));
 
-      final favoriteBooks = result.data!['favoriteBooks'] as List<dynamic>;
-      final allBooks = result.data!['allBooks'] as List<dynamic>;
-      final allAuthors = result.data!['favoriteAuthors'] as List<dynamic>;
       final userPicture = result.data!['userPicture'] as String;
 
-      final books = allBooks
+      final book = result.data!['allBooks'] as List<dynamic>;
+
+      final author = (result.data!['allBooks'] as List<dynamic>)
+          .map((book) => book['author'])
+          .toList();
+
+      final allBooks = book
           .map((item) => BookModel.fromJson(item as Map<String, dynamic>))
           .toList();
 
-      final favorites = favoriteBooks
-          .map((item) => BookModel.fromJson(item as Map<String, dynamic>))
-          .toList();
-
-      final favoriteAuthors = allAuthors
+      final allAuthors = author
           .map((item) => AuthorModel.fromJson(item as Map<String, dynamic>))
           .toList();
 
@@ -43,9 +42,8 @@ class HomePageCubit extends Cubit<HomePageState> {
       } else {
         emit(
           HomePageLoaded(
-            books: books,
-            favoriteBooks: favorites,
-            favoriteAuthors: favoriteAuthors,
+            books: allBooks,
+            authors: allAuthors,
             userPicture: userPicture,
           ),
         );

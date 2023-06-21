@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../features/book_detail/book_detail_page.dart';
 import '../../shared/colors/app_colors.dart';
 
 class FavoriteBookCardWidget extends StatelessWidget {
@@ -9,29 +8,18 @@ class FavoriteBookCardWidget extends StatelessWidget {
     required this.imgUrl,
     required this.bookTitle,
     required this.authorName,
-    required this.description,
+    required this.onTap,
     super.key,
   });
 
   final String imgUrl;
   final String bookTitle;
   final String authorName;
-  final String description;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => BookDetailPage(
-                imgUrl: imgUrl,
-                bookTitle: bookTitle,
-                authorName: authorName,
-                description: description,
-              ),
-            ),
-          );
-        },
+        onTap: onTap,
         child: SizedBox(
           width: 136.0,
           child: Column(

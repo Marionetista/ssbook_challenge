@@ -31,7 +31,7 @@ class App extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           home: BlocProvider<HomePageCubit>(
-            create: (context) => HomePageCubit(client.value)..getBooks(),
+            create: (context) => HomePageCubit(client.value)..getHomePageData(),
             child: const HomePage(),
           ),
         ),

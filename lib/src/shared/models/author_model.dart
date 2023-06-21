@@ -4,9 +4,9 @@ class AuthorModel extends Equatable {
   factory AuthorModel.fromJson(Map<String, Object?> json) => AuthorModel(
         id: json['id'] as String,
         name: json['name'] as String,
-        picture: json['picture'] as String,
-        booksCount: json['booksCount'] as int,
-        isFavorite: json['isFavorite'] as bool,
+        picture: json['picture'] as String?,
+        booksCount: json['booksCount'] as int?,
+        isFavorite: json['isFavorite'] as bool?,
       );
 
   const AuthorModel({
@@ -19,9 +19,9 @@ class AuthorModel extends Equatable {
 
   final String id;
   final String name;
-  final String picture;
-  final int booksCount;
-  final bool isFavorite;
+  final String? picture;
+  final int? booksCount;
+  final bool? isFavorite;
 
   @override
   List<Object?> get props => [

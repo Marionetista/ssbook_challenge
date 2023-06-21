@@ -11,9 +11,9 @@ class AuthorCardWidget extends StatelessWidget {
     super.key,
   });
 
-  final String imgUrl;
+  final String? imgUrl;
   final String name;
-  final int bookCount;
+  final int? bookCount;
 
   @override
   Widget build(BuildContext context) => SizedBox(
@@ -29,7 +29,7 @@ class AuthorCardWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
-                  imgUrl,
+                  imgUrl!,
                   fit: BoxFit.fill,
                 ),
               ),

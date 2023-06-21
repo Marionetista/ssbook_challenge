@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../shared/colors/app_colors.dart';
 import '../../shared/models/author_model.dart';
@@ -11,6 +12,8 @@ import '../../widgets/home/bottom_app_bar_widget.dart';
 import '../../widgets/home/cathegory_widget.dart';
 import '../../widgets/home/favorite_book_card_widget.dart';
 import '../../widgets/home/section_title_widget.dart';
+import '../book_detail/book_detail_page.dart';
+import '../book_detail/cubit/book_detail_cubit.dart';
 import 'cubit/home_page_cubit.dart';
 import 'cubit/home_page_state.dart';
 
@@ -27,17 +30,27 @@ class _HomePageState extends State<HomePage> {
       BlocConsumer<HomePageCubit, HomePageState>(
         listener: (context, state) {},
         builder: (context, state) {
+          final client = GraphQLProvider.of(context).value;
+
           final isLoading = state is HomePageLoading;
 
-          final favoritesBooks =
-              state is HomePageLoaded ? state.favoriteBooks : <BookModel>[];
+          final userPicture = state is HomePageLoaded ? state.userPicture : '';
 
           final books = state is HomePageLoaded ? state.books : <BookModel>[];
 
-          final favoriteAuthors =
-              state is HomePageLoaded ? state.favoriteAuthors : <AuthorModel>[];
+          final authors =
+              state is HomePageLoaded ? state.authors : <AuthorModel>[];
 
-          final userPicture = state is HomePageLoaded ? state.userPicture : '';
+          final favoriteAuthors = state is HomePageLoaded
+              ? authors
+                  ?.where((author) => author.isFavorite == true)
+                  .toSet()
+                  .toList()
+              : <AuthorModel>[];
+
+          final favoriteBooks = state is HomePageLoaded
+              ? books.where((book) => book.isFavorite == true).toList()
+              : <BookModel>[];
 
           return Scaffold(
             backgroundColor: AppColors.purpleGrey,
@@ -63,15 +76,34 @@ class _HomePageState extends State<HomePage> {
                             child: SizedBox(
                               height: 270,
                               child: ListView.separated(
-                                itemCount: favoritesBooks.length,
+                                itemCount: favoriteBooks.length,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) =>
                                     FavoriteBookCardWidget(
-                                  imgUrl: favoritesBooks[index].cover,
-                                  bookTitle: favoritesBooks[index].name,
-                                  authorName: favoritesBooks[index].author.name,
-                                  description:
-                                      favoritesBooks[index].description,
+                                  onTap: () async =>
+                                      await Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          BlocProvider<BookDetailCubit>(
+                                        create: (context) =>
+                                            BookDetailCubit(client)
+                                              ..getBookDetailData(
+                                                id: int.parse(
+                                                  favoriteBooks[index].id,
+                                                ),
+                                              ),
+                                        child: BookDetailPage(
+                                          id: int.parse(
+                                            favoriteBooks[index].id,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  id: favoriteBooks[index].id,
+                                  imgUrl: favoriteBooks[index].cover,
+                                  bookTitle: favoriteBooks[index].name,
+                                  authorName: favoriteBooks[index].author.name,
                                 ),
                                 separatorBuilder: (context, index) =>
                                     const SizedBox(width: 20),
@@ -96,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                                   child: SizedBox(
                                     height: 69.0,
                                     child: ListView.separated(
-                                      itemCount: favoriteAuthors.length,
+                                      itemCount: favoriteAuthors!.length,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) =>
                                           AuthorCardWidget(
@@ -134,10 +166,28 @@ class _HomePageState extends State<HomePage> {
                                           const SizedBox(height: 20),
                                       itemBuilder: (context, index) =>
                                           BookCardWidget(
+                                        onTap: () async =>
+                                            await Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                BlocProvider<BookDetailCubit>(
+                                              create: (context) =>
+                                                  BookDetailCubit(client)
+                                                    ..getBookDetailData(
+                                                      id: int.parse(
+                                                        books[index].id,
+                                                      ),
+                                                    ),
+                                              child: BookDetailPage(
+                                                id: int.parse(books[index].id),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        id: books[index].id,
                                         imgUrl: books[index].cover,
                                         bookTitle: books[index].name,
                                         authorName: books[index].author.name,
-                                        description: books[index].description,
                                       ),
                                     ),
                                   ),
