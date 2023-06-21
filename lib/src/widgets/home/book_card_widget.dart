@@ -25,6 +25,7 @@ class BookCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               child: Image.network(
                 imgUrl,
+                fit: BoxFit.fill,
                 width: 48.0,
                 height: 70.0,
               ),

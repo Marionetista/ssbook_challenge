@@ -43,12 +43,15 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 20),
             child: CircleAvatar(
-              backgroundImage:
-                  NetworkImage('https://picsum.photos/250?image=9'),
+              backgroundImage: userIcon == '' ? null : NetworkImage(userIcon),
+              backgroundColor: AppColors.purple,
+              child: userIcon == ''
+                  ? const Icon(Icons.person, color: AppColors.darkGrey)
+                  : null,
             ),
           ),
         ],

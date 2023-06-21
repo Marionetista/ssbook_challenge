@@ -23,29 +23,48 @@ class AuthorCardWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: AppColors.borderGrey),
           ),
-          child: ListTile(
-            contentPadding: const EdgeInsets.only(),
-            title: Text(
-              name,
-              style: GoogleFonts.roboto(
-                color: AppColors.darkGrey,
-                fontWeight: FontWeight.w700,
-                fontSize: 16.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image.network(
+                  imgUrl,
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-            subtitle: Text(
-              bookCount == 1 ? '$bookCount livro' : '$bookCount livros',
-              style: GoogleFonts.roboto(
-                color: AppColors.darkGrey,
-                fontWeight: FontWeight.w400,
-                fontSize: 14.0,
-              ),
-            ),
-            leading: Image.network(
-              imgUrl,
-              width: 63.0,
-              height: 67.0,
-            ),
+              const SizedBox(width: 20.0),
+              Flexible(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.roboto(
+                        color: AppColors.darkGrey,
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 6.0),
+                    Text(
+                      bookCount == 1 ? '$bookCount livro' : '$bookCount livros',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.roboto(
+                        color: AppColors.darkGrey,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       );

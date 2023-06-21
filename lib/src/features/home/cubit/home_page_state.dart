@@ -22,12 +22,19 @@ class HomePageLoaded extends HomePageState {
     required this.books,
     required this.favoriteBooks,
     required this.favoriteAuthors,
+    required this.userPicture,
   });
 
   final List<BookModel> books;
   final List<BookModel> favoriteBooks;
   final List<AuthorModel> favoriteAuthors;
+  final String userPicture;
 
   @override
-  List<Object?> get props => [books, favoriteBooks];
+  List<Object?> get props => [
+        books,
+        favoriteBooks,
+        favoriteAuthors,
+        userPicture,
+      ];
 }

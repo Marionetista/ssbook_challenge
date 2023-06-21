@@ -24,6 +24,7 @@ class HomePageCubit extends Cubit<HomePageState> {
       final favoriteBooks = result.data!['favoriteBooks'] as List<dynamic>;
       final allBooks = result.data!['allBooks'] as List<dynamic>;
       final allAuthors = result.data!['favoriteAuthors'] as List<dynamic>;
+      final userPicture = result.data!['userPicture'] as String;
 
       final books = allBooks
           .map((item) => BookModel.fromJson(item as Map<String, dynamic>))
@@ -45,6 +46,7 @@ class HomePageCubit extends Cubit<HomePageState> {
             books: books,
             favoriteBooks: favorites,
             favoriteAuthors: favoriteAuthors,
+            userPicture: userPicture,
           ),
         );
       }

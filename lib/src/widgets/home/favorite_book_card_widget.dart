@@ -39,7 +39,7 @@ class _FavoriteBookCardWidgetState extends State<FavoriteBookCardWidget> {
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   widget.imgUrl,
-                  width: 136.0,
+                  fit: BoxFit.fill,
                   height: 198.0,
                 ),
               ),

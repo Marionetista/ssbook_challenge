@@ -37,11 +37,11 @@ class _HomePageState extends State<HomePage> {
           final favoriteAuthors =
               state is HomePageLoaded ? state.favoriteAuthors : <AuthorModel>[];
 
+          final userPicture = state is HomePageLoaded ? state.userPicture : '';
+
           return Scaffold(
             backgroundColor: AppColors.purpleGrey,
-            appBar: const AppBarWidget(
-              userIcon: 'https://picsum.photos/250?image=9',
-            ),
+            appBar: AppBarWidget(userIcon: userPicture),
             body: SafeArea(
               child: isLoading
                   ? const Center(
